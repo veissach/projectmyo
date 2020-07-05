@@ -1,8 +1,14 @@
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy 
 from scipy.signal import butter, filtfilt, savgol_filter, hilbert
 
-q1 = numpy.loadtxt('/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/S1/S1.csv', delimiter = ',', unpack = True)
+q2=pd.read_csv('/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/S1/S1.csv')
+
+from sklearn.preprocessing import MaxAbsScaler
+scaler=MaxAbsScaler()
+scaled=scaler.fit_transform(q2)
+q1=pd.DataFrame(scaled)
 
 q = q1[9,1462700:1502700]
 q_abs = numpy.absolute(q)
