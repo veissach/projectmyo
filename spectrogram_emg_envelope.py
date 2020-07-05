@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+
 
 
 import matplotlib.pyplot as plt
 
 
-# In[2]:
 
 
 import numpy 
@@ -19,20 +18,20 @@ import pandas as pd
  
 
 
-# In[3]:
+
 
 
 q1 = numpy.loadtxt('/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/S1/S1.csv')
 
 
-# In[4]:
+
 
 
 q = q1[9,1462700:1502700]
 q_abs = numpy.absolute(q)
 
 
-# In[5]:
+
 
 
 def emg_filter_bandpass(x, order=4, sRate=1000., cut=.5, btype='low'):
@@ -44,7 +43,7 @@ def emg_filter_bandpass(x, order=4, sRate=1000., cut=.5, btype='low'):
                     padlen=numpy.minimum(3 * numpy.maximum(len(a), len(b)), x.shape[0] - 1))
 
 
-# In[6]:
+
 
 
 def calc_hilbert(signal):
@@ -55,7 +54,7 @@ def calc_hilbert(signal):
     return [amplitude_envelope, instantaneous_frequency]
 
 
-# In[7]:
+
 
 
 def calc_envelope(signal, freq=20, smooth=21):
@@ -65,7 +64,7 @@ def calc_envelope(signal, freq=20, smooth=21):
     return sf 
 
 
-# In[8]:
+
 
 
 window_size = 500
@@ -80,19 +79,19 @@ while i < len(q_abs) - window_size + 1:
     i += 50
 
 
-# In[21]:
+
 
 
 moving_averages=numpy.array(moving_averages)
 
 
-# In[72]:
+
 
 
 f,t, Sxx = signal.spectrogram(moving_averages, fs=280, return_onesided=True, mode='phase')
 
 
-# In[73]:
+
 
 
 plt.pcolormesh(t, f, Sxx, shading='gouraud')
@@ -102,7 +101,7 @@ plt.xlabel('Time [sec]')
 plt.show()
 
 
-# In[ ]:
+
 
 
 fig, ax1 = plt.subplots(figsize=(13,4))
