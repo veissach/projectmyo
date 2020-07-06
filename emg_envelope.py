@@ -1,8 +1,8 @@
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy 
 from scipy.signal import butter, filtfilt, savgol_filter, hilbert
 from sklearn.preprocessing import MaxAbsScaler
-
 
 #envelope functions    
 def emg_filter_bandpass(x, order=4, sRate=2000., cut=5., btype='low'):
