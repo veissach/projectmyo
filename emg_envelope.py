@@ -1,8 +1,14 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy 
 from scipy.signal import butter, filtfilt, savgol_filter, hilbert
 from sklearn.preprocessing import MaxAbsScaler
+import librosa
+import librosa.display
 
 #envelope functions    
 def emg_filter_bandpass(x, order=4, sRate=2000., cut=5., btype='low'):
@@ -69,6 +75,8 @@ def data_prep():
     
     return sum_env(mav1, mav2)
 
+# In[2]:
+
 def plot(data1, data2):
     
     #'''FOR SEPERATE GRAPHS, USE THIS
@@ -91,6 +99,13 @@ def plot(data1, data2):
     plt.show()
 
 
+# In[20]:
+
+"""
+#The scipy spectogram
+from scipy import signal
+from scipy.fftpack import fftshift
+
 INPUT_FOLDER = '/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/'
 
 subject_num: int = 1
@@ -104,10 +119,36 @@ s2 = s2
 mav1 = MAV(s1)
 mav2 = MAV(s2)
 
+plt.figure()
 
-plot(s1, sum_env(mav1, mav2)[2000:6000])
+f,t, Sxx = signal.spectrogram(numpy.array(sum_env(mav1, mav2)[35000:39500]),fs=2000 ,return_onesided=True, mode='phase')
 
-            
-        
-        
-        
+plt.pcolormesh(t, f, Sxx, shading='gouraud')
+plt.ylabel('Frequency [Hz]')
+plt.xlabel('Time [sec]')
+#plt.savefig("C:/Users/hp/Downloads/spectogram.jpg")
+plt.show()
+"""
+
+# In[5]:
+#The librosa spectogram
+
+INPUT_FOLDER = '/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/'
+
+subject_num: int = 1
+channels: int = 2
+lRange = 1400000
+uRange = 1600000
+
+s1, s2 = loader(uRange, lRange)
+s1 = s1
+s2 = s2
+mav1 = MAV(s1)
+mav2 = MAV(s2)
+
+
+S = librosa.feature.melspectrogram(y=numpy.array(sum_env(mav1, mav2)[40000:84600]))
+librosa.display.specshow(S, x_axis='time', y_axis='log')
+plt.colorbar(format='%+2.0f dB')
+plt.ylim(0,100)
+
