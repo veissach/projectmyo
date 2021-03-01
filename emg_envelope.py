@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import matplotlib.pyplot as plt
 import numpy 
 from scipy.signal import butter, filtfilt, savgol_filter, hilbert
@@ -101,11 +101,12 @@ uRange = 1502700
 s1, s2 = loader(uRange, lRange)
 s1 = s1
 s2 = s2
-mav1 = MAV(s1)
-mav2 = MAV(s2)
-
+mav1 = numpy.array(MAV(s1))
+mav2 = numpy.array(MAV(s2))
+sum_ = numpy.array(sum_env(mav1, mav2)[20000:26000])
 
 plot(s1, sum_env(mav1, mav2)[2000:6000])
+
 
             
         
