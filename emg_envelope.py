@@ -15,12 +15,11 @@ class EmgData:#envelope functions
         
     def emg_filter_bandpass(self, x, order=4, sRate=2000., cut=5., btype='low'):
         """ Forward-backward (high- or low-)pass filtering (IIR butterworth filter) """
-        Shape = x.shape[0]
         nyq = 0.5 * sRate
         low = cut / nyq
         b, a = butter(4, low, btype=btype, analog=False)
         return filtfilt(b=b, a=a, x=x, axis=0, method='pad', padtype='odd',
-                        padlen=numpy.minimum(3 * numpy.maximum(len(a), len(b)), Shape - 1))
+                        padlen=numpy.minimum(3 * numpy.maximum(len(a), len(b)), x.shape[0] - 1))
     
     def calc_hilbert(self, signal): #preprocessing
         analytic_signal = hilbert(signal)
@@ -118,7 +117,7 @@ class EmgData:#envelope functions
 if __name__ == '__main__':
     path = '/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/'
     
-    e = EmgData(2000, 6000)
+    e = EmgData(2000, 3000)
     
     s1, s2 = e.loader(path)
     s1 = s1
