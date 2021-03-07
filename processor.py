@@ -12,6 +12,7 @@ class EmgData:#envelope functions
         self.channels = channels
         self.lRange = lRange
         self.uRange = uRange
+
         
     def emg_filter_bandpass(self, x, order=4, sRate=2000., cut=5., btype='low'):
         """ Forward-backward (high- or low-)pass filtering (IIR butterworth filter) """
@@ -36,7 +37,7 @@ class EmgData:#envelope functions
     
     def MAV(self, signal): 
         sig = self.calc_envelope(signal)
-        window_size = 500
+        window_size = 512
         i = 0
         moving_averages = []
     
@@ -60,14 +61,16 @@ class EmgData:#envelope functions
         scaled = scaler.fit_transform(data)
         _scaled1 = numpy.absolute(scaled[8,self.lRange:self.uRange])
         _scaled2 = numpy.absolute(scaled[9,self.lRange:self.uRange])
-    
+        _scaled3 = numpy.absolute(scaled[6,self.lRange:self.uRange])
+        _scaled4 = numpy.absolute(scaled[3,self.lRange:self.uRange])
+
         '''    
         for chan in range(1, channels+1):
             _data = []
             _data.append(numpy.absolute(scaled[8,lRange:uRange]))
             chan += 1
         '''    
-        return _scaled1, _scaled2
+        return _scaled1, _scaled2, _scaled3, _scaled4
     
     def data_prep(self, path):
         _data1, _data2 = self.loader(path)
@@ -77,15 +80,15 @@ class EmgData:#envelope functions
         
         return self.sum_env(mav1, mav2)
     
-    def plot(self, data1, data2):
-    #def plot(data1, data2):
+    def plot(self, data1):
+    #def plot(self, data1, data2):
         
         #'''FOR SEPERATE GRAPHS, USE THIS
         
-        fig, ax = plt.subplots(figsize=(10,4))
+        fig, ax = plt.subplots(figsize=(20,4))
     
         ax.plot(data1, 'r', label='raw data')
-        ax.plot(data2, 'b', label='envelope')
+        #ax.plot(data2, 'b', label='envelope')
         '''
         fig, ax1 = plt.subplots(figsize=(10,4))
         
