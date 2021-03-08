@@ -4,7 +4,7 @@ import numpy
 from scipy.signal import butter, filtfilt, savgol_filter, hilbert
 from sklearn.preprocessing import MaxAbsScaler
 
-class EmgData:#envelope functions  
+class preprocessing:#envelope functions  
     
     
     def __init__(self, lRange, uRange, subject_num: int = 1, channels: int = 2):
