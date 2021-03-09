@@ -11,7 +11,7 @@ def prep_data(path):
     d2 = e.calc_envelope(d2)
     d3 = e.calc_envelope(d3)
     d4 = e.calc_envelope(d4)
-    Label = np.array(pd.read_csv(path)[0:10000])
+    Label = np.array(pd.read_csv(f"{path}S1_labels.csv", engine = 'python')[0:10000])
     #L = Labels
     #Labels = np.reshape(Label, (40000,)
     #e.plot(e.calc_envelope(d2))
@@ -33,12 +33,6 @@ class KNN:
         
             
     def train(self):
-        d = np.array([self.d1, self.d2, self.d3, self.d4, self.Labels])
-        df = pd.DataFrame(d.T, columns=['s1', 's2', 's3', 'd4', 'class'])
-        
-        
-        X = np.array(df.drop(['class'], 1))
-        y = np.array(df['class'])
         
         #d = {'s1':[np.array(d1)], 's2':[np.array(d2)], 'class':[np.array(Labels[1462700:1502700])]}
         d = np.array([self.d1, self.d2, self.d3, self.d4, self.Labels])
@@ -56,6 +50,9 @@ class KNN:
     
         accuracy = clf.score(X_test, y_test)
         print('accuracy =', accuracy)
+        
+k = KNN('/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/')
+k.train()
         
 #test_signal = np.array([[0.3308264649854933, 0.2381490536075344, 0.1997658380042437, 0.24130765822373523]])
 #prediction = clf.predict(test_signal)
