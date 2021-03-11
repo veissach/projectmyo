@@ -120,7 +120,7 @@ class preprocessing:#envelope functions
 if __name__ == '__main__':
     path = '/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/'
     
-    e = EmgData(2000, 3000)
+    e = preprocessing(2000, 3000)
     
     s1, s2 = e.loader(path)
     s1 = s1
