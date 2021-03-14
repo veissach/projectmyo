@@ -18,17 +18,23 @@ def prep_data(path):
     Labels = Label.flatten()
     
     return d1, d2, d3, d4, Labels
-    
+
+d1, d2, d3, d4, Labels = prep_data(path)
+self.d1 = d1
+self.d2 = d2
+self.d3 = d3
+self.d4 = d4
+self.Labels = Labels
     
 class KNN:
     
-    def __init__(self, path):
-        d1, d2, d3, d4, Labels = prep_data(path)
-        self.d1 = d1
-        self.d2 = d2
-        self.d3 = d3
-        self.d4 = d4
-        self.Labels = Labels
+#    def __init__(self, path):
+#        d1, d2, d3, d4, Labels = prep_data(path)
+#        self.d1 = d1
+#        self.d2 = d2
+#        self.d3 = d3
+#        self.d4 = d4
+#        self.Labels = Labels
         
             
     def train(self):
@@ -60,5 +66,3 @@ class KNN:
 #print(d1[ind], d2[ind], d3[ind], d4[ind])
 
 class CNN:
-    
-    def __init__(self):
