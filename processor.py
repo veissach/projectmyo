@@ -102,6 +102,7 @@ class preprocessing:#envelope functions
         #plt.savefig("/Volumes/Seagate Backup Plus Drive/NinaPro DB-2/EMG data/RAW_w200s50.jpg", Transparent = True)
         plt.show()
     
+    def muscle_det(self):
     
     #subject_num: int = 1
     #channels: int = 2
