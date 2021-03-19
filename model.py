@@ -65,4 +65,4 @@ class KNN:
 #ind = 1165997
 #print(d1[ind], d2[ind], d3[ind], d4[ind])
 
-class CNN:
+    
